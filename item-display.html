@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Item Display</title>
+        <script src ="item-list.js"></script>
+        <style>
+        .prop-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .prop-name {
+            width: 250px;
+            font-weight: bold;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="main-container">
+            <div>
+                <h2>Item Display</h2>
+            </div>
+            <div>
+                <select name="item-list" id="item_list" class="select" onchange="testchange(event)"></select>
+            </div>
+            <hr />
+            <div class="prop-row">
+                <div class="prop-name">ID</div>
+                <div id="item-id"></div>
+            </div>
+            <div class="prop-row">
+                <div class="prop-name">Name</div>
+                <div id="item-name"></div>
+            </div>
+            <div class="prop-row">
+                <div class="prop-name">Category</div>
+                <div id="item-category"></div>
+            </div>
+            <div class="prop-row">
+                <div class="prop-name">Inventory Amt.</div>
+                <div id="item-inventory"></div>
+            </div>
+            <div class="prop-row">
+                <div class="prop-name">List Price</div>
+                <div id="item-price"></div>
+            </div>
+            <div>
+                <script>
+                    function testchange(event) {
+                        let selectedId = event.target.value;
+                        console.log("==> event value: ", selectedId);
+                        
+                        if (selectedId == 0) {
+                            document.getElementById("item-id").innerHTML = "";
+                            document.getElementById("item-name").innerHTML = "";
+                            document.getElementById("item-category").innerHTML = "";
+                            document.getElementById("item-inventory").innerHTML = "";
+                            document.getElementById("item-price").innerHTML = "";
+                            return;
+                        }
+                        
+                        for (let i = 0; i < items.length; i++) {
+                            if (items[i].id == selectedId) {
+                                document.getElementById("item-id").innerHTML = items[i].id;
+                                document.getElementById("item-name").innerHTML = items[i].name;
+                                document.getElementById("item-category").innerHTML = items[i].category;
+                                document.getElementById("item-inventory").innerHTML = items[i].inventory;
+                                document.getElementById("item-price").innerHTML = items[i].price;
+                            }
+                        }
+                    }
+                    
+                    let optionHtml = `<option value="0">Select an Item</option>`;
+
+                    for (let i = 0; i < items.length; i++) {
+                        optionHtml += `<option value="${items[i].id}">${items[i].name}</option>`;
+                    }
+
+                    document.getElementById("item_list").innerHTML = optionHtml;
+                </script>
+            </div>
+        </div>
+    </body>
+</html>
